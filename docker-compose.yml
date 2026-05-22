@@ -22,6 +22,19 @@ services:
     volumes:
       - loki_data:/loki
 
+  otel-collector:
+    build:
+      context: .
+      dockerfile: dockerfile
+    ports:
+      - "4317:4317" # OTLP gRPC receiver
+      - "4318:4318" # OTLP HTTP receiver
+      - "13133:13133" # Health check endpoint
+    environment:
+      - TEMPO_ENDPOINT=http://tempo:4317
+      - PROMETHEUS_ENDPOINT=http://prometheus:9090/api/v1/write
+      - LOKI_ENDPOINT=http://loki:3100/loki/api/v1/push
+
   tempo: 
     build:
       context: ./tempo
