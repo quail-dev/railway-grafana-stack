@@ -24,16 +24,16 @@ services:
 
   otel-collector:
     build:
-      context: .
+      context: ./otel-collector
       dockerfile: dockerfile
     ports:
       - "4317:4317" # OTLP gRPC receiver
       - "4318:4318" # OTLP HTTP receiver
       - "13133:13133" # Health check endpoint
     environment:
-      - TEMPO_ENDPOINT=http://tempo:4317
+      - TEMPO_ENDPOINT=http://tempo:4318
       - PROMETHEUS_ENDPOINT=http://prometheus:9090/api/v1/write
-      - LOKI_ENDPOINT=http://loki:3100/loki/api/v1/push
+      - LOKI_ENDPOINT=http://loki:3100/otlp
 
   tempo: 
     build:
