@@ -4,6 +4,7 @@ server:
 compactor:
   compaction:
     compaction_window: 1h
+    block_retention: 168h # Limit trace retention to 7 days to bound storage/memory growth
 
 storage:
   trace:
