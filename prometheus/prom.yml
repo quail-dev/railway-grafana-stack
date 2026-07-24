@@ -1,5 +1,6 @@
 global:
   scrape_interval: 15s # Default scrape interval
+  retention_time: 7d # Limit metric storage to 7 days to bound memory/disk growth
 
 scrape_configs:
   - job_name: 'prometheus'
